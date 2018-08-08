@@ -4,10 +4,10 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <h1>Image Gallery</h1>
+    <p class="lead">Upload and share your images.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    @using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<!--    @using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="form-horizontal">
             <h4>Upload Image</h4>
@@ -19,8 +19,12 @@
                 </div>
             </div>
         </div>
-        <input type="submit" value="Upload"/>
-    }
+        <input type="submit" value="Upload" />
+    }-->
+
+    <form action="~/Home/UploadImages"
+          class="dropzone"
+          id="my-awesome-dropzone"></form>
 </div>
 
 @foreach (var item in Model)

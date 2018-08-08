@@ -44,7 +44,7 @@ namespace StorageService
             cloudBlockBlob.Properties.ContentType = contentType;
 
             //Upload não assíncrono
-            Task task = cloudBlockBlob.UploadFromStreamAsync(fileStream);
+            await cloudBlockBlob.UploadFromStreamAsync(fileStream);
 
             //Blob URL
             return cloudBlockBlob.Uri.ToString();

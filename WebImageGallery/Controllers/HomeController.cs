@@ -39,18 +39,21 @@ namespace WebImageGallery.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UploadImage(string description, HttpPostedFileBase imageFile)
+        public async Task<ActionResult> UploadImages()
         {
-            Image image = new Image();
-            image.Description = description;
+            var files = Request.Files;
             var blobService = new BlobService();
-            image.Url = await blobService.UploadImage("gallerycontainer",
-                imageFile.FileName,
-                imageFile.InputStream,
-                imageFile.ContentType);
-
-            _images.Add(image);
-
+            for (int i=0; i<files.Count; i++)
+            {
+                var imageFile = files[i];
+                string imageUrl = await blobService.UploadImage("gallerycontainer",
+                    imageFile.FileName,
+                    imageFile.InputStream,
+                    imageFile.ContentType);
+                Image image = new Image();
+                image.Url = imageUrl;
+                _images.Add(image);
+            }
             return View("Index", _images);
         }
     }
