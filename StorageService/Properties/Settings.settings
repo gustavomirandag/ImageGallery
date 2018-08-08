@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="StorageConnectionString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">COLOQUE AQUI SUA STRING DE CONEXÃO</Value>
+      <Value Profile="(Default)">DefaultEndpointsProtocol=https;AccountName=infnetstorage;AccountKey=9By1s2Y2Oh/NPULIH6ads5OPa3dtI5BZEa1u1BDbZqhC0Szy5u8rdMbtVyWJglHJW96I9w7Lg5y9RXUoGO8g0Q==;EndpointSuffix=core.windows.net</Value>
     </Setting>
   </Settings>
 </SettingsFile>
