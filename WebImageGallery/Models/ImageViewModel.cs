@@ -5,9 +5,8 @@ using System.Web;
 
 namespace WebImageGallery.Models
 {
-    public class Image
+    public class ImageViewModel
     {
-        public Guid Id { get; set; }
         public string Url { get; set; }
     }
 }

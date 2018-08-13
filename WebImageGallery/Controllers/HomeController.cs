@@ -11,16 +11,14 @@ namespace WebImageGallery.Controllers
 {
     public class HomeController : Controller
     {
-        private static List<Image> _images;
-
-        public HomeController()
-        {
-            if (_images == null)
-                _images = new List<Image>();
-        }
+        private static IEnumerable<ImageViewModel> _images;
 
         public ActionResult Index()
         {
+            //--- Obtem da Tabela ---
+            TableService tableService = new TableService();
+            _images = tableService.GetAllImages().Select(url => new ImageViewModel() { Url = url });
+            //-----------------------
             return View(_images);
         }
 
@@ -50,9 +48,15 @@ namespace WebImageGallery.Controllers
                     imageFile.FileName,
                     imageFile.InputStream,
                     imageFile.ContentType);
-                Image image = new Image();
+                ImageViewModel image = new ImageViewModel();
                 image.Url = imageUrl;
-                _images.Add(image);
+
+                //--- Add to StorageTable ---
+                TableService tableService = new TableService();
+                tableService.AddImage(image.Url);
+                _images = tableService.GetAllImages().Select(url => new ImageViewModel() { Url = url });
+                //---------------------------
+
             }
             return View("Index", _images);
         }

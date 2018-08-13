@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebImageGallery.Models.Image>
+﻿@model IEnumerable<WebImageGallery.Models.ImageViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -30,9 +30,7 @@
 @foreach (var item in Model)
 {
     <div class="row">
-        @Html.DisplayFor(i => item.Description)
-        <br />
-        <img src="@item.Url"/>
+        <img src="@item.Url" style="max-width:300px; height:auto"/>
     </div>
 }
 
