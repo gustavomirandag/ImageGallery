@@ -77,6 +77,11 @@ namespace StorageService
             IEnumerable<string> urls = null;
             try
             {
+                //Isso é a mesma coisa que o SELECT (select é uma função do LINQ)
+                //List<string> urls = new List<string>();
+                //foreach(var current in images)
+                //    urls.Add(current.Url);
+
                 if (images.Count() > 0)
                     urls = images.Select(i => i.Url);
             }
@@ -85,7 +90,32 @@ namespace StorageService
                 urls = new List<string>();
             }
 
-            return  urls;
+            return urls;
+        }
+
+        public void DeleteImage(string url)
+        {
+            //Obtem referência a StorageAccount do Azure
+            CloudStorageAccount storageAccount = CloudStorageAccount
+                .Parse(StorageService.Properties.Settings.Default.StorageConnectionString);
+
+            //Cria um CloudTableClient a partir do StorageAccount
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            CloudTable table = tableClient.GetTableReference("Images");
+
+            //Obtem referência a tabela de imagens
+            TableQuery<Image> query = new TableQuery<Image>()
+                .Where(TableQuery.GenerateFilterCondition("Url", QueryComparisons.Equal, url));
+
+            var imagesToDelete = table.ExecuteQuery(query);
+
+            TableBatchOperation operationToDelete = new TableBatchOperation();
+            foreach (var currentImage in imagesToDelete)
+            {
+                operationToDelete.Delete(currentImage);
+            }
+            table.ExecuteBatch(operationToDelete);
         }
     }
 }

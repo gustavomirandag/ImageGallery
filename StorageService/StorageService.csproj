@@ -56,6 +56,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="QueueService.cs" />
     <Compile Include="TableService.cs" />
   </ItemGroup>
   <ItemGroup>
